@@ -11,5 +11,5 @@ This Snapplication demonstrates a problem with lists rendered from Markdown into
 * `cabal build`
 * `cabal run`
 * browse to [localhost:8000](http://localhost:8000)
-* Notice that [the markdown defined in Site.hs](../blob/master/src/Site.hs#L30-L47) is rendered as HTML, except the <ul> and <ol> tags, which have their angle-brackets HTML-escaped.
+* Notice that [the markdown defined in Site.hs](../blob/master/src/Site.hs#L30-47) is rendered as HTML, except the <ul> and <ol> tags, which have their angle-brackets HTML-escaped.
 
