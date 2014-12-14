@@ -26,8 +26,14 @@ import qualified Heist.Interpreted           as I
 import           Application
 
 markdownSplice :: Monad n => I.Splice n
-markdownSplice = I.runNodeList $ X.docContent $ X.renderHtml $ markdown settings $ L.concat
-                [ "* first item"
+markdownSplice = I.runNodeList $ X.docContent $ X.renderHtml $ markdown settings $ L.intercalate "\n"
+                [ "Here's some text that'll be in paragraph tags"
+                , ""
+                , "[Here's a link](https://git.andrewlorente.com/AndrewLorente/markdown-lists)"
+                , ""
+                , "Ok, here comes the list:"
+                , ""
+                , "* first item"
                 , "* second item"
                 , "* third item"
                 ]
