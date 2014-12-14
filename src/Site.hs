@@ -31,11 +31,19 @@ markdownSplice = I.runNodeList $ X.docContent $ X.renderHtml $ markdown settings
                 , ""
                 , "[Here's a link](https://git.andrewlorente.com/AndrewLorente/markdown-lists)"
                 , ""
-                , "Ok, here comes the list:"
+                , "Ok, here comes an unordered list:"
                 , ""
                 , "* first item"
                 , "* second item"
                 , "* third item"
+                , ""
+                , "And an ordered list:"
+                , ""
+                , "1. first item"
+                , "1. second item"
+                , "1. third item"
+                , ""
+                , "Isn't that messed up?"
                 ]
   where
     settings = def { msXssProtect = False }
@@ -47,7 +55,6 @@ routes :: [(ByteString, Handler App App ())]
 routes = [ ("/",    ifTop index)
          , ("",     serveDirectory "static")
          ]
-
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
