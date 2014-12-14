@@ -17,16 +17,15 @@ import           Snap.Core
 import           Snap.Snaplet
 import           Snap.Snaplet.Heist
 import           Snap.Util.FileServe
-import qualified Text.Blaze.Renderer.XmlHtml as X (renderHtml)
+import qualified Text.Blaze.Renderer.XmlHtml as X
 import           Text.Markdown               (markdown, MarkdownSettings(..))
-import qualified Text.XmlHtml                as X
 import           Heist
 import qualified Heist.Interpreted           as I
 ------------------------------------------------------------------------------
 import           Application
 
 markdownSplice :: Monad n => I.Splice n
-markdownSplice = I.runNodeList $ X.docContent $ X.renderHtml $ markdown settings $ L.intercalate "\n"
+markdownSplice = I.runNodeList $ X.renderHtmlNodes $ markdown settings $ L.intercalate "\n"
                 [ "Here's some text that'll be in paragraph tags"
                 , ""
                 , "[Here's a link](https://git.andrewlorente.com/AndrewLorente/markdown-lists)"
