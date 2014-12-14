@@ -1,0 +1,55 @@
+Name:                markdown-lists
+Version:             0.1
+Synopsis:            Demonstration of a problem I've been having with lists
+Description:         ul and ol tags get over-escaped
+License:             MIT
+Author:              Andrew Lorente
+Maintainer:          hello@andrewlorente.com
+Stability:           Experimental
+Category:            Web
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+Flag development
+  Description: Whether to build the server in development (interpreted) mode
+  Default: False
+
+Executable markdown-lists
+  hs-source-dirs: src
+  main-is: Main.hs
+
+  Build-depends:
+    base                      >= 4.4     && < 5,
+    blaze-html                >= 0.7     && < 0.8,
+    blaze-markup              >= 0.6     && < 0.7,
+    bytestring                >= 0.9.1   && < 0.11,
+    heist                     >= 0.13    && < 0.14,
+    lens                      >= 3.7.6   && < 4.1,
+    markdown                  >= 0.1.7   && < 0.2,
+    MonadCatchIO-transformers >= 0.2.1   && < 0.4,
+    mtl                       >= 2       && < 3,
+    snap                      >= 0.13    && < 0.14,
+    snap-core                 >= 0.9     && < 0.11,
+    snap-server               >= 0.9     && < 0.11,
+    snap-loader-static        >= 0.9     && < 0.10,
+    text                      >= 0.11    && < 1.2,
+    time                      >= 1.1     && < 1.5,
+    xmlhtml                   >= 0.1
+
+  if flag(development)
+    build-depends:
+      snap-loader-dynamic == 0.10.*
+    cpp-options: -DDEVELOPMENT
+    -- In development mode, speed is already going to suffer, so skip
+    -- the fancy optimization flags.  Additionally, disable all
+    -- warnings.  The hint library doesn't give an option to execute
+    -- compiled code when there were also warnings, so disabling
+    -- warnings allows quicker workflow.
+    ghc-options: -threaded -Wall
+  else
+    if impl(ghc >= 6.12.0)
+      ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                   -fno-warn-orphans -fno-warn-unused-do-bind
+    else
+      ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                   -fno-warn-orphans
